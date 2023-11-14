@@ -2,6 +2,11 @@
 
 typedef struct {
 	unsigned int ID;
+	char CategoryName[50];
+} Category;
+
+typedef struct {
+	unsigned int ID;
 	char Name[50];
 	char Description[100];
 	char PublishedDate[50];
