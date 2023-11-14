@@ -2,6 +2,13 @@
 
 typedef struct {
 	unsigned int ID;
+	char Name[50];
+	char Email[50];
+	char Password[50];
+} Reader;
+
+typedef struct {
+	unsigned int ID;
 	char PublisherName[50];
 } Publisher;
 
