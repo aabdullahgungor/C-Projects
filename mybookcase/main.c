@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+typedef struct {
+	unsigned int ID;
+	char Name[50];
+} Author;
+
 int main()
 {
 	while (1)
