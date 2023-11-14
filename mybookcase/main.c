@@ -2,6 +2,11 @@
 
 typedef struct {
 	unsigned int ID;
+	char PublisherName[50];
+} Publisher;
+
+typedef struct {
+	unsigned int ID;
 	char CategoryName[50];
 } Category;
 
