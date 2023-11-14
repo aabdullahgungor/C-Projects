@@ -3,6 +3,17 @@
 typedef struct {
 	unsigned int ID;
 	char Name[50];
+	char Description[100];
+	char PublishedDate[50];
+	unsigned int Edition;
+	unsigned int TotalPages;
+	char Languages[50];
+	char ISBN[100];
+} Book;
+
+typedef struct {
+	unsigned int ID;
+	char Name[50];
 } Author;
 
 int main()
