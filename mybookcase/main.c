@@ -17,15 +17,21 @@ typedef struct {
 	char Password[50];
 } Reader;
 
+void reader_operations();
+
 typedef struct {
 	unsigned int ID;
 	char PublisherName[50];
 } Publisher;
 
+void publisher_operations();
+
 typedef struct {
 	unsigned int ID;
 	char CategoryName[50];
 } Category;
+
+void category_operations();
 
 typedef struct {
 	unsigned int ID;
@@ -38,10 +44,14 @@ typedef struct {
 	char ISBN[100];
 } Book;
 
+void book_operations();
+
 typedef struct {
 	unsigned int ID;
 	char Name[50];
 } Author;
+
+void author_operations();
 
 int main()
 {
@@ -87,3 +97,6 @@ int main()
 		}
 	}
 }
+
+
+
