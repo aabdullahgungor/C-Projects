@@ -1,6 +1,16 @@
 #include <stdio.h>
 
 typedef struct {
+	char Readers[50];
+	char Publishers[50];
+	char Categories[50];
+	char Books[50];
+	char Authors[50];
+} DataFile;
+
+DataFile df = {"reader_data.csv", "publisher_data.csv", "category_data.csv", "book_data.csv", "author_data.csv"};
+
+typedef struct {
 	unsigned int ID;
 	char Name[50];
 	char Email[50];
