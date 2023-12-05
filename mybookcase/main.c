@@ -65,18 +65,23 @@ int main()
 		switch (choice) {
 			case 1:
 				printf("Author Process ..... \n");
+				author_operations();
 				break;
 			case 2:
 				printf("Book Process ..... \n");
+				book_operations();
 				break;
 			case 3:
 				printf("Category Process ..... \n");
+				category_operations();
 				break;
 			case 4:
 				printf("Publisher Process ..... \n");
+				publisher_operations();
 				break;
 			case 5:
 				printf("Reader Process ..... \n");
+				reader_operations();
 				break;
 			case 6:
 				printf("Exit Process ..... \n");
