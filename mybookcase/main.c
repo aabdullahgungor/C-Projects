@@ -31,6 +31,11 @@ typedef struct {
 } Publisher;
 
 void publisher_operations();
+void viewPublishers(FILE *file);
+void addPublisher(FILE *file, struct Publisher *newPublisher);
+void updatePublisher(FILE *file, int targetId, struct Publisher *updatedPublisher);
+void deletePublisher(FILE *file, int targetId);
+void savePublishers(FILE *file, struct Publisher *publishers, int numPublishers);
 
 typedef struct {
 	unsigned int ID;
