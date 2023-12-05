@@ -55,47 +55,39 @@ void author_operations();
 
 int main()
 {
-	while (1)
-	{
-		int process;
-		
+	int choice;
+	
+	do {
 		printf("Please select the part you want to process: \n");
 		printf(" 1-Author\n 2-Book\n 3-Category\n 4-Publisher\n 5-Reader\n 6-Exit\n");
-		scanf("%d", &process); 
+		scanf("%d", &choice); 
 		
-		if (process == 6) 
-		{
-			break;
-		}
-		
-		else 
-		{
-			if (process == 1)
-			{
+		switch (choice) {
+			case 1:
 				printf("Author Process ..... \n");
-			}
-			else if (process == 2)
-			{
+				break;
+			case 2:
 				printf("Book Process ..... \n");
-			}
-			else if (process == 3)
-			{
+				break;
+			case 3:
 				printf("Category Process ..... \n");
-			}
-			else if (process == 4)
-			{
+				break;
+			case 4:
 				printf("Publisher Process ..... \n");
-			}
-			else if (process == 5)
-			{
+				break;
+			case 5:
 				printf("Reader Process ..... \n");
-			}
-			else 
-			{
-				printf("Wrong Choice !!! \n");
-			}
+				break;
+			case 6:
+				printf("Exit Process ..... \n");
+				break;
+			default:
+				printf("Invalid choice. Please try again.\n");
 		}
-	}
+		
+	} while(1);
+	
+	return 0;
 }
 
 
