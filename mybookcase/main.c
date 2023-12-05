@@ -73,6 +73,11 @@ typedef struct {
 } Author;
 
 void author_operations();
+void viewAuthors(FILE *file);
+void addAuthor(FILE *file, struct Author *newAuthor);
+void updateAuthor(FILE *file, int targetId, struct Author *updatedAuthor);
+void deleteAuthor(FILE *file, int targetId);
+void saveAuthors(FILE *file, struct Author *books, int numAuthors);
 
 int main()
 {
