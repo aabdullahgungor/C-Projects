@@ -19,36 +19,41 @@ typedef struct {
 } Reader;
 
 void reader_operations();
+/*
 void viewReaders(FILE *file);
-void addReader(FILE *file, struct Reader *newReader);
-void updateReader(FILE *file, int targetId, struct Reader *updatedReader);
+void addReader(FILE *file, Reader *newReader);
+void updateReader(FILE *file, int targetId, Reader *updatedReader);
 void deleteReader(FILE *file, int targetId);
-void saveReaders(FILE *file, struct Reader *readers, int numReaders);
+void saveReader(FILE *file, Reader *reader, int numReader);
+*/
 
 typedef struct {
 	unsigned int ID;
 	char PublisherName[50];
 } Publisher;
 
+/*
 void publisher_operations();
 void viewPublishers(FILE *file);
-void addPublisher(FILE *file, struct Publisher *newPublisher);
-void updatePublisher(FILE *file, int targetId, struct Publisher *updatedPublisher);
+void addPublisher(FILE *file, Publisher *newPublisher);
+void updatePublisher(FILE *file, int targetId, Publisher *updatedPublisher);
 void deletePublisher(FILE *file, int targetId);
-void savePublishers(FILE *file, struct Publisher *publishers, int numPublishers);
+void savePublisher(FILE *file, Publisher *publisher, int numPublisher);
+*/
 
 typedef struct {
 	unsigned int ID;
 	char CategoryName[50];
 } Category;
 
+/*
 void category_operations();
 void viewCategories(FILE *file);
-void addCategory(FILE *file, struct Category *newCategory);
-void updateCategory(FILE *file, int targetId, struct Category *updatedCategory);
+void addCategory(FILE *file, Category *newCategory);
+void updateCategory(FILE *file, int targetId, Category *updatedCategory);
 void deleteCategory(FILE *file, int targetId);
-void saveCategories(FILE *file, struct Category *categorys, int numCategories);
-
+void saveCategory(FILE *file, Category *category, int numCategory);
+*/
 typedef struct {
 	unsigned int ID;
 	char Name[50];
@@ -60,24 +65,28 @@ typedef struct {
 	char ISBN[100];
 } Book;
 
+/*
 void book_operations();
 void viewBooks(FILE *file);
-void addBook(FILE *file, struct Book *newBook);
-void updateBook(FILE *file, int targetId, struct Book *updatedBook);
+void addBook(FILE *file, Book *newBook);
+void updateBook(FILE *file, int targetId, Book *updatedBook);
 void deleteBook(FILE *file, int targetId);
-void saveBooks(FILE *file, struct Book *books, int numBooks);
+void saveBook(FILE *file, Book *book, int numBook);
+*/
 
 typedef struct {
 	unsigned int ID;
 	char Name[50];
 } Author;
 
+/*
 void author_operations();
 void viewAuthors(FILE *file);
-void addAuthor(FILE *file, struct Author *newAuthor);
-void updateAuthor(FILE *file, int targetId, struct Author *updatedAuthor);
+void addAuthor(FILE *file, Author *newAuthor);
+void updateAuthor(FILE *file, int targetId, Author *updatedAuthor);
 void deleteAuthor(FILE *file, int targetId);
-void saveAuthors(FILE *file, struct Author *books, int numAuthors);
+void saveAuthor(FILE *file, Author *author, int numAuthor);
+*/
 
 int main()
 {
@@ -91,19 +100,19 @@ int main()
 		switch (choice) {
 			case 1:
 				printf("Author Process ..... \n");
-				author_operations();
+				// author_operations();
 				break;
 			case 2:
 				printf("Book Process ..... \n");
-				book_operations();
+				// book_operations();
 				break;
 			case 3:
 				printf("Category Process ..... \n");
-				category_operations();
+				// category_operations();
 				break;
 			case 4:
 				printf("Publisher Process ..... \n");
-				publisher_operations();
+				// publisher_operations();
 				break;
 			case 5:
 				printf("Reader Process ..... \n");
@@ -120,6 +129,67 @@ int main()
 	
 	return 0;
 }
+
+void reader_operations() {
+	FILE *file;
+    file = fopen(df.Readers, "a+"); // Open file in append and read mode
+
+    if (file == NULL) {
+        error("Error opening file");
+    }
+    
+    int choice;
+    Reader newReader;
+    Reader updatedReader;
+    int targetId;
+    /*
+    do {
+    	printf("\n1. View Readers\n2. Add Reader\n3. Update Reader\n4. Delete Reader\n5. Save and Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+        	case 1:
+        		viewReaders(file);
+        		break;
+        	case 2:
+        		printf("Enter ID: ");
+        		scanf("%d", &newReader.ID);
+        		printf("Enter Name: ");
+        		scanf("%s", &newReader.Name);
+        		printf("Enter Email: ");
+        		scanf("%s", &newReader.Email);
+        		printf("Enter Password: ");
+        		scanf("%s", &newReader.Password);
+        		addReader(file, &newReader);
+        		break;
+			case 3:
+				printf("Enter ID to update: ");
+                scanf("%d", &targetId);
+                printf("Enter updated Name: ");
+        		scanf("%s", &updatedReader.Name);
+        		printf("Enter updated Email: ");
+        		scanf("%s", &updatedReader.Email);
+        		printf("Enter updated Password: ");
+        		scanf("%s", &updatedReader.Password);
+        		updateReader(file, targetId, &updatedReader);
+				break;
+			case 4:
+				printf("Enter ID to delete: ");
+                scanf("%d", &targetId);
+                deleteReader(file, targetId);
+                break;
+            case 5: 
+            	saveReader(file, &newReader, 1); // Saving the latest reader before exiting
+                fclose(file);
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+		}	
+	} while(1);
+	*/
+}
+
 
 
 
