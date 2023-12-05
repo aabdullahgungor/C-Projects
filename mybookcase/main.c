@@ -43,6 +43,11 @@ typedef struct {
 } Category;
 
 void category_operations();
+void viewCategorys(FILE *file);
+void addCategory(FILE *file, struct Category *newCategory);
+void updateCategory(FILE *file, int targetId, struct Category *updatedCategory);
+void deleteCategory(FILE *file, int targetId);
+void savePublishers(FILE *file, struct Category *categorys, int numCategorys);
 
 typedef struct {
 	unsigned int ID;
