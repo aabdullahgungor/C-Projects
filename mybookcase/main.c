@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
 	char Readers[50];
@@ -18,6 +19,11 @@ typedef struct {
 } Reader;
 
 void reader_operations();
+void viewReaders(FILE *file);
+void addReader(FILE *file, struct Reader *newReader);
+void updateReader(FILE *file, int targetId, struct Reader *updatedReader);
+void deleteReader(FILE *file, int targetId);
+void saveReaders(FILE *file, struct Reader *readers, int numReaders);
 
 typedef struct {
 	unsigned int ID;
