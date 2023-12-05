@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
 	char Readers[50];
@@ -135,19 +136,20 @@ void reader_operations() {
     file = fopen(df.Readers, "a+"); // Open file in append and read mode
 
     if (file == NULL) {
-        error("Error opening file");
+        printf("Error: could not open file\n");
+		exit(-1);
     }
     
     int choice;
     Reader newReader;
     Reader updatedReader;
     int targetId;
-    /*
+    
     do {
     	printf("\n1. View Readers\n2. Add Reader\n3. Update Reader\n4. Delete Reader\n5. Save and Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        
+        /*
         switch (choice) {
         	case 1:
         		viewReaders(file);
@@ -186,8 +188,8 @@ void reader_operations() {
             default:
                 printf("Invalid choice. Please try again.\n");
 		}	
+		*/
 	} while(1);
-	*/
 }
 
 
