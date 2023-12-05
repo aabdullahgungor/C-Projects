@@ -61,6 +61,11 @@ typedef struct {
 } Book;
 
 void book_operations();
+void viewBooks(FILE *file);
+void addBook(FILE *file, struct Book *newBook);
+void updateBook(FILE *file, int targetId, struct Book *updatedBook);
+void deleteBook(FILE *file, int targetId);
+void saveBooks(FILE *file, struct Book *books, int numBooks);
 
 typedef struct {
 	unsigned int ID;
