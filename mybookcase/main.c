@@ -217,6 +217,21 @@ void addReader(FILE *file, Reader *newReader) {
 
 // Function to update a reader in the file
 void updateReader(FILE *file, int targetId, Reader *updatedReader) {
+	
+	rewind(file); // Move file pointer to the beginning
+	int found = 0;
+	Reader reader;
+	
+	fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);
+	fread(&reader, sizeof(Reader), 1, file);
+	if (reader.ID == targetId) {
+		fseek(file, -sizeof(Reader), SEEK_CUR); // Move file pointer back
+   		fwrite(&updatedReader, sizeof(Reader), 1, file);
+   		found = 1;
+	}
+	if (!found) {
+        printf("Reader not found.\n");
+    }
 
 }
 
@@ -230,3 +245,10 @@ void deleteReader(FILE *file, int targetId) {
 void saveReader(FILE *file, Reader *reader, int numReader) {
 	
 }
+
+
+
+/* UPDATE METHOD
+
+
+*/
