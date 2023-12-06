@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h> 
-#include <conio.h> 
 
 typedef struct {
 	char Readers[50];
@@ -140,7 +138,7 @@ void reader_operations() {
 	FILE *file;
     file = fopen(df.Readers, "r+"); // Open file in append and read mode
 
-    if(errno == ENOENT) {
+    if(file == NULL) {
     	file = fopen(df.Readers, "w+");
 	}
 
