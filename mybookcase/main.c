@@ -239,10 +239,21 @@ void updateReader(FILE *file, int targetId, Reader *updatedReader) {
 // Function to delete Reader from file
 void deleteReader(FILE *file, int targetId) {
 	
+	rewind(file); // Move file pointer to the beginning
+	int found = 0;
+	Reader reader;
 	Reader emptyReader = {0, "", "", ""};
+	
     fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);
-    fwrite(&emptyReader, sizeof(Reader), 1, file);
-    fclose(file);
+	fread(&reader, sizeof(Reader), 1, file);
+	if (reader.ID == targetId) {
+		fseek(file, -sizeof(Reader), SEEK_CUR); // Move file pointer back	
+    	fwrite(&emptyReader, sizeof(Reader), 1, file);
+    }
+	if (!found) {
+        printf("Reader not found.\n");
+    }
+	fclose(file);
 	
 }
 
