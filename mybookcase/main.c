@@ -10,7 +10,7 @@ typedef struct {
 	char Authors[50];
 } DataFile;
 
-DataFile df = {"reader_data.csv", "publisher_data.csv", "category_data.csv", "book_data.csv", "author_data.csv"};
+DataFile df = {"reader_data.txt", "publisher_data.txt", "category_data.txt", "book_data.txt", "author_data.txt"};
 
 typedef struct {
 	unsigned int ID;
@@ -194,42 +194,39 @@ void reader_operations() {
 	} while(1);
 }
 
-// Function to view readers from CSV file
+// Function to view readers from file
 void viewReaders(FILE *file) {
 	
-	char buffer[1000]; // We need a buffer for reading data
 	rewind(file); // Move file pointer to the beginning
 	
-	printf("ID, Name, Email, Password\n");
-	printf("===============================\n");
-	printf("\n");
-	// Read and display each record
-	while (fgets(buffer, sizeof(buffer), file)) {  
-		printf("%s\n", buffer);
+	Reader reader;
+    printf("\nID\tName\tEmail\tPassword\n");
+	while (fread(&reader, sizeof(Reader), 1, file)) {
+        printf("%d\t%s\t%s\t%s\n", reader.ID, reader.Name, reader.Email, reader.Password);
     }
 }
 
-// Function to add a new reader to the CSV file
+// Function to add a new reader to the file
 void addReader(FILE *file, Reader *newReader) {
 	
 	fseek(file, 0, SEEK_END); // Move file pointer to the end
-    fprintf(file, "%d,%s,%s,%s\n",newReader->ID,newReader->Name,newReader->Email,newReader->Password);
-    printf("Reader added successfully.\n");
-    fclose(file);
+	fwrite(newReader, sizeof(Reader), 1, file);
+    printf("Data added successfully.\n");
+	
 }
 
-// Function to update a reader in the CSV file
+// Function to update a reader in the file
 void updateReader(FILE *file, int targetId, Reader *updatedReader) {
 
 }
 
 
-// Function to delete Reader from CSV file
+// Function to delete Reader from file
 void deleteReader(FILE *file, int targetId) {
 	
 }
 
-// Function to save reader_data CSV file
+// Function to save reader_data file
 void saveReader(FILE *file, Reader *reader, int numReader) {
 	
 }
