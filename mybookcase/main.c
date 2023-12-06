@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h> 
+#include <conio.h> 
 
 typedef struct {
 	char Readers[50];
@@ -138,10 +140,10 @@ void reader_operations() {
 	FILE *file;
     file = fopen(df.Readers, "r+"); // Open file in append and read mode
 
-    if (file == NULL) {
-        printf("Error: could not open file\n");
-		exit(-1);
-    }
+    if(errno == ENOENT) {
+    	file = fopen(df.Readers, "w+");
+	}
+
     printf("File reading is successful.\n");
     int choice;
     Reader newReader;
@@ -239,20 +241,30 @@ void updateReader(FILE *file, int targetId, Reader *updatedReader) {
 void deleteReader(FILE *file, int targetId) {
 	
 	rewind(file); // Move file pointer to the beginning
-	int found = 0;
-	Reader reader;
-	Reader emptyReader = {0, "", "", ""};
-	
-    fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);
-	fread(&reader, sizeof(Reader), 1, file);
-	if (reader.ID == targetId) {
-		fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);	
-    	fwrite(&emptyReader, sizeof(Reader), 1, file);
+
+    Reader reader;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+
+    int found = 0;
+
+    while (fread(&reader, sizeof(Reader), 1, file)) {
+        if (reader.ID == targetId) {
+            printf("Data deleted successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&reader, sizeof(Reader), 1, tempFile);
+        }
     }
-	if (!found) {
+
+    fclose(file);
+    fclose(tempFile);
+
+    remove("reader_data.txt");
+    rename("temp.txt", "reader_data.txt");
+
+    if (!found) {
         printf("Reader not found.\n");
     }
-	fclose(file);
 	
 }
 
