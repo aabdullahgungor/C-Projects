@@ -232,12 +232,17 @@ void updateReader(FILE *file, int targetId, Reader *updatedReader) {
 	if (!found) {
         printf("Reader not found.\n");
     }
-
+	fclose(file);
 }
 
 
 // Function to delete Reader from file
 void deleteReader(FILE *file, int targetId) {
+	
+	Reader emptyReader = {0, "", "", ""};
+    fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);
+    fwrite(&emptyReader, sizeof(Reader), 1, file);
+    fclose(file);
 	
 }
 
@@ -246,9 +251,3 @@ void saveReader(FILE *file, Reader *reader, int numReader) {
 	
 }
 
-
-
-/* UPDATE METHOD
-
-
-*/
