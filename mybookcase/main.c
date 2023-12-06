@@ -220,20 +220,35 @@ void addReader(FILE *file, Reader *newReader) {
 void updateReader(FILE *file, int targetId, Reader *updatedReader) {
 	
 	rewind(file); // Move file pointer to the beginning
-	int found = 0;
-	Reader reader;
-	
-	fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);
-	fread(&reader, sizeof(Reader), 1, file);
-	if (reader.ID == targetId) {
-		fseek(file, -sizeof(Reader), SEEK_CUR); // Move file pointer back
-   		fwrite(&updatedReader, sizeof(Reader), 1, file);
-   		found = 1;
-	}
-	if (!found) {
+
+    Reader reader;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+    
+    int found = 0;
+    
+    while (fread(&reader, sizeof(Reader), 1, file)) {
+        if (reader.ID == targetId) {
+			strcpy(reader.Name, updatedReader->Name);
+			strcpy(reader.Email, updatedReader->Email);
+			strcpy(reader.Password, updatedReader->Password);
+        	fwrite(&reader, sizeof(Reader), 1, tempFile);
+            printf("Data updated successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&reader, sizeof(Reader), 1, tempFile);
+        }
+    }
+    
+    fclose(file);
+    fclose(tempFile);
+
+    remove("reader_data.txt");
+    rename("temp.txt", "reader_data.txt");
+
+    if (!found) {
         printf("Reader not found.\n");
     }
-	fclose(file);
+    
 }
 
 
