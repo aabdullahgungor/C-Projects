@@ -131,6 +131,9 @@ int main()
 	return 0;
 }
 
+/* ---- READER OPERATIONS ---- */
+
+// Function to choice reader operations
 void reader_operations() {
 	FILE *file;
     file = fopen(df.Readers, "a+"); // Open file in append and read mode
@@ -224,6 +227,7 @@ void deleteReader(FILE *file, int targetId) {
 	
 }
 
+// Function to save reader_data CSV file
 void saveReader(FILE *file, Reader *reader, int numReader) {
 	
 }
