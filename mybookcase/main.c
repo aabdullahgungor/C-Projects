@@ -211,6 +211,7 @@ void viewReaders(FILE *file) {
 
 // Function to add a new reader to the CSV file
 void addReader(FILE *file, Reader *newReader) {
+	
 	fseek(file, 0, SEEK_END); // Move file pointer to the end
     fprintf(file, "%d,%s,%s,%s\n",newReader->ID,newReader->Name,newReader->Email,newReader->Password);
     printf("Reader added successfully.\n");
@@ -219,8 +220,9 @@ void addReader(FILE *file, Reader *newReader) {
 
 // Function to update a reader in the CSV file
 void updateReader(FILE *file, int targetId, Reader *updatedReader) {
-	
+
 }
+
 
 // Function to delete Reader from CSV file
 void deleteReader(FILE *file, int targetId) {
