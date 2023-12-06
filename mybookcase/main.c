@@ -20,13 +20,12 @@ typedef struct {
 } Reader;
 
 void reader_operations();
-/*
 void viewReaders(FILE *file);
 void addReader(FILE *file, Reader *newReader);
 void updateReader(FILE *file, int targetId, Reader *updatedReader);
 void deleteReader(FILE *file, int targetId);
 void saveReader(FILE *file, Reader *reader, int numReader);
-*/
+
 
 typedef struct {
 	unsigned int ID;
@@ -96,6 +95,7 @@ int main()
 	do {
 		printf("Please select the part you want to process: \n");
 		printf(" 1-Author\n 2-Book\n 3-Category\n 4-Publisher\n 5-Reader\n 6-Exit\n");
+		printf("Enter your choice: ");
 		scanf("%d", &choice); 
 		
 		switch (choice) {
@@ -139,7 +139,7 @@ void reader_operations() {
         printf("Error: could not open file\n");
 		exit(-1);
     }
-    
+    printf("File reading is successful.\n");
     int choice;
     Reader newReader;
     Reader updatedReader;
@@ -149,7 +149,7 @@ void reader_operations() {
     	printf("\n1. View Readers\n2. Add Reader\n3. Update Reader\n4. Delete Reader\n5. Save and Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        /*
+        
         switch (choice) {
         	case 1:
         		viewReaders(file);
@@ -188,10 +188,42 @@ void reader_operations() {
             default:
                 printf("Invalid choice. Please try again.\n");
 		}	
-		*/
 	} while(1);
 }
 
+// Function to view readers from CSV file
+void viewReaders(FILE *file) {
+	
+	char buffer[1000]; // We need a buffer for reading data
+	rewind(file); // Move file pointer to the beginning
+	
+	printf("ID, Name, Email, Password\n");
+	printf("===============================\n");
+	printf("\n");
+	// Read and display each record
+	while (fgets(buffer, sizeof(buffer), file)) {  
+		printf("%s\n", buffer);
+    }
+}
 
+// Function to add a new reader to the CSV file
+void addReader(FILE *file, Reader *newReader) {
+	fseek(file, 0, SEEK_END); // Move file pointer to the end
+    fprintf(file, "%d,%s,%s,%s\n",newReader->ID,newReader->Name,newReader->Email,newReader->Password);
+    printf("Reader added successfully.\n");
+    fclose(file);
+}
 
+// Function to update a reader in the CSV file
+void updateReader(FILE *file, int targetId, Reader *updatedReader) {
+	
+}
 
+// Function to delete Reader from CSV file
+void deleteReader(FILE *file, int targetId) {
+	
+}
+
+void saveReader(FILE *file, Reader *reader, int numReader) {
+	
+}
