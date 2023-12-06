@@ -136,7 +136,7 @@ int main()
 // Function to choice reader operations
 void reader_operations() {
 	FILE *file;
-    file = fopen(df.Readers, "a+"); // Open file in append and read mode
+    file = fopen(df.Readers, "r+"); // Open file in append and read mode
 
     if (file == NULL) {
         printf("Error: could not open file\n");
@@ -185,8 +185,7 @@ void reader_operations() {
                 deleteReader(file, targetId);
                 break;
             case 5: 
-            	saveReader(file, &newReader, 1); // Saving the latest reader before exiting
-                fclose(file);
+            	fclose(file);
                 exit(0);
             default:
                 printf("Invalid choice. Please try again.\n");
@@ -247,7 +246,7 @@ void deleteReader(FILE *file, int targetId) {
     fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);
 	fread(&reader, sizeof(Reader), 1, file);
 	if (reader.ID == targetId) {
-		fseek(file, -sizeof(Reader), SEEK_CUR); // Move file pointer back	
+		fseek(file, (targetId - 1) * sizeof(Reader), SEEK_SET);	
     	fwrite(&emptyReader, sizeof(Reader), 1, file);
     }
 	if (!found) {
@@ -257,8 +256,4 @@ void deleteReader(FILE *file, int targetId) {
 	
 }
 
-// Function to save reader_data file
-void saveReader(FILE *file, Reader *reader, int numReader) {
-	
-}
 
