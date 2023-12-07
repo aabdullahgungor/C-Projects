@@ -111,7 +111,7 @@ int main()
 				break;
 			case 4:
 				printf("Publisher Process ..... \n");
-				// publisher_operations();
+				publisher_operations();
 				break;
 			case 5:
 				printf("Reader Process ..... \n");
@@ -247,7 +247,6 @@ void updateReader(FILE *file, int targetId, Reader *updatedReader) {
     
 }
 
-
 // Function to delete Reader from file
 void deleteReader(FILE *file, int targetId) {
 	
@@ -277,6 +276,10 @@ void deleteReader(FILE *file, int targetId) {
         printf("Reader not found.\n");
     }
 	
+}
+
+void saveReader(FILE *file, Reader *reader, int numReader) {
+
 }
 
 /* ---- READER OPERATIONS ---- */
@@ -334,22 +337,91 @@ void publisher_operations() {
 
 }
 
+// Function to view publishers from file
 void viewPublishers(FILE *file) {
 
+	rewind(file); // Move file pointer to the beginning
+	
+	Publisher publisher;
+    printf("\nID\tPublisher_Name\n");
+	while (fread(&publisher, sizeof(Publisher), 1, file)) {
+        printf("%d\t%s\n", publisher.ID, publisher.PublisherName);
+    }
 }
 
+// Function to add a new publisher to the file
 void addPublisher(FILE *file, Publisher *newPublisher) {
-
+	
+	fseek(file, 0, SEEK_END); // Move file pointer to the end
+	fwrite(newPublisher, sizeof(Publisher), 1, file);
+    printf("Data added successfully.\n");
 }
 
+// Function to update a publisher in the file
 void updatePublisher(FILE *file, int targetId, Publisher *updatedPublisher) {
 
+	rewind(file); // Move file pointer to the beginning
+
+    Publisher publisher;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+    
+    int found = 0;
+    
+    while (fread(&publisher, sizeof(Publisher), 1, file)) {
+        if (publisher.ID == targetId) {
+			strcpy(publisher.PublisherName, updatedPublisher->PublisherName);
+        	fwrite(&publisher, sizeof(Publisher), 1, tempFile);
+            printf("Data updated successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&publisher, sizeof(Publisher), 1, tempFile);
+        }
+    }
+    
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Publishers);
+    rename("temp.txt", df.Publishers);
+
+    if (!found) {
+        printf("Publisher not found.\n");
+    }
+
 }
 
+// Function to delete Publisher from file
 void deletePublisher(FILE *file, int targetId) {
+
+	rewind(file); // Move file pointer to the beginning
+
+    Publisher publisher;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+
+    int found = 0;
+
+    while (fread(&publisher, sizeof(Publisher), 1, file)) {
+        if (publisher.ID == targetId) {
+            printf("Data deleted successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&publisher, sizeof(Publisher), 1, tempFile);
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Publishers);
+    rename("temp.txt", df.Publishers);
+
+    if (!found) {
+        printf("Publisher not found.\n");
+    }
 
 }
 
 void savePublisher(FILE *file, Publisher *publisher, int numPublisher) {
 
 }
+
