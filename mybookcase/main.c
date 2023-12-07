@@ -134,7 +134,7 @@ int main()
 // Function to choice reader operations
 void reader_operations() {
 	FILE *file;
-    file = fopen(df.Readers, "r+"); // Open file in append and read mode
+    file = fopen(df.Readers, "r+"); // Open file in read mode
 
     if(file == NULL) {
     	file = fopen(df.Readers, "w+");
@@ -283,6 +283,54 @@ void deleteReader(FILE *file, int targetId) {
 
 // Function to choice publisher operations
 void publisher_operations() {
+	FILE *file;
+    file = fopen(df.Publishers, "r+"); // Open file in read mode
+
+    if(file == NULL) {
+    	file = fopen(df.Readers, "w+");
+	}
+
+    printf("File reading is successful.\n");
+    int choice;
+    Publisher newPublisher;
+    Publisher updatedPublisher;
+    int targetId;
+    
+    do {
+    	printf("\n1. View Publishers\n2. Add Publisher\n3. Update Publisher\n4. Delete Publisher\n5. Save and Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+        	case 1:
+        		viewPublishers(file);
+        		break;
+        	case 2:
+        		printf("Enter ID: ");
+        		scanf("%d", &newPublisher.ID);
+        		printf("Enter Publisher Name: ");
+        		scanf("%s", &newPublisher.PublisherName);
+        		addPublisher(file, &newPublisher);
+        		break;
+			case 3:
+				printf("Enter ID to update: ");
+                scanf("%d", &targetId);
+                printf("Enter updated Publisher Name: ");
+        		scanf("%s", &updatedPublisher.PublisherName);
+        		updatePublisher(file, targetId, &updatedPublisher);
+				break;
+			case 4:
+				printf("Enter ID to delete: ");
+                scanf("%d", &targetId);
+                deletePublisher(file, targetId);
+                break;
+            case 5: 
+            	fclose(file);
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+		}	
+	} while(1);
 
 }
 
