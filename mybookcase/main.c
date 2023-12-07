@@ -238,8 +238,8 @@ void updateReader(FILE *file, int targetId, Reader *updatedReader) {
     fclose(file);
     fclose(tempFile);
 
-    remove("reader_data.txt");
-    rename("temp.txt", "reader_data.txt");
+    remove(df.Readers);
+    rename("temp.txt", df.Readers);
 
     if (!found) {
         printf("Reader not found.\n");
@@ -269,8 +269,8 @@ void deleteReader(FILE *file, int targetId) {
     fclose(file);
     fclose(tempFile);
 
-    remove("reader_data.txt");
-    rename("temp.txt", "reader_data.txt");
+    remove(df.Readers);
+    rename("temp.txt", df.Readers);
 
     if (!found) {
         printf("Reader not found.\n");
@@ -282,7 +282,7 @@ void saveReader(FILE *file, Reader *reader, int numReader) {
 
 }
 
-/* ---- READER OPERATIONS ---- */
+/* ---- PUBLISHER OPERATIONS ---- */
 
 // Function to choice publisher operations
 void publisher_operations() {
