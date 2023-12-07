@@ -44,14 +44,14 @@ typedef struct {
 	char CategoryName[50];
 } Category;
 
-/*
+
 void category_operations();
 void viewCategories(FILE *file);
 void addCategory(FILE *file, Category *newCategory);
 void updateCategory(FILE *file, int targetId, Category *updatedCategory);
 void deleteCategory(FILE *file, int targetId);
 void saveCategory(FILE *file, Category *category, int numCategory);
-*/
+
 typedef struct {
 	unsigned int ID;
 	char Name[50];
@@ -425,3 +425,33 @@ void savePublisher(FILE *file, Publisher *publisher, int numPublisher) {
 
 }
 
+/* ---- CATEGORY OPERATIONS ---- */
+
+// Function to choice category operations
+void category_operations() {
+
+}
+
+// Function to view categories from file
+void viewCategories(FILE *file) {
+
+}
+
+// Function to add a new category to the file
+void addCategory(FILE *file, Category *newCategory) {
+
+}
+
+// Function to update a category in the file
+void updateCategory(FILE *file, int targetId, Category *updatedCategory) {
+
+}
+
+// Function to delete category from file
+void deleteCategory(FILE *file, int targetId) {
+
+}
+
+void saveCategory(FILE *file, Category *category, int numCategory) {
+
+}
