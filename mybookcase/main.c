@@ -32,14 +32,12 @@ typedef struct {
 	char PublisherName[50];
 } Publisher;
 
-/*
 void publisher_operations();
 void viewPublishers(FILE *file);
 void addPublisher(FILE *file, Publisher *newPublisher);
 void updatePublisher(FILE *file, int targetId, Publisher *updatedPublisher);
 void deletePublisher(FILE *file, int targetId);
 void savePublisher(FILE *file, Publisher *publisher, int numPublisher);
-*/
 
 typedef struct {
 	unsigned int ID;
@@ -281,4 +279,29 @@ void deleteReader(FILE *file, int targetId) {
 	
 }
 
+/* ---- READER OPERATIONS ---- */
 
+// Function to choice publisher operations
+void publisher_operations() {
+
+}
+
+void viewPublishers(FILE *file) {
+
+}
+
+void addPublisher(FILE *file, Publisher *newPublisher) {
+
+}
+
+void updatePublisher(FILE *file, int targetId, Publisher *updatedPublisher) {
+
+}
+
+void deletePublisher(FILE *file, int targetId) {
+
+}
+
+void savePublisher(FILE *file, Publisher *publisher, int numPublisher) {
+
+}
