@@ -484,6 +484,14 @@ void category_operations() {
 // Function to view categories from file
 void viewCategories(FILE *file) {
 
+	rewind(file); // Move file pointer to the beginning
+	
+	Category category;
+    printf("\nID\tCategory_Name\n");
+	while (fread(&category, sizeof(Category), 1, file)) {
+        printf("%d\t%s\n", category.ID, category.CategoryName);
+    }
+
 }
 
 // Function to add a new category to the file
