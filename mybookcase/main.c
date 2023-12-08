@@ -497,10 +497,41 @@ void viewCategories(FILE *file) {
 // Function to add a new category to the file
 void addCategory(FILE *file, Category *newCategory) {
 
+	fseek(file, 0, SEEK_END); // Move file pointer to the end
+	fwrite(newCategory, sizeof(Category), 1, file);
+    printf("Data added successfully.\n");
 }
 
 // Function to update a category in the file
 void updateCategory(FILE *file, int targetId, Category *updatedCategory) {
+
+	rewind(file); // Move file pointer to the beginning
+
+    Category category;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+    
+    int found = 0;
+    
+    while (fread(&category, sizeof(Category), 1, file)) {
+        if (category.ID == targetId) {
+			strcpy(category.CategoryName, updatedCategory->CategoryName);
+        	fwrite(&category, sizeof(Category), 1, tempFile);
+            printf("Data updated successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&category, sizeof(Category), 1, tempFile);
+        }
+    }
+    
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Categories);
+    rename("temp.txt", df.Categories);
+
+    if (!found) {
+        printf("Category not found.\n");
+    }
 
 }
 
