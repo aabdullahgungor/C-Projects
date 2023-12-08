@@ -107,7 +107,7 @@ int main()
 				break;
 			case 3:
 				printf("Category Process ..... \n");
-				// category_operations();
+				category_operations();
 				break;
 			case 4:
 				printf("Publisher Process ..... \n");
@@ -290,7 +290,7 @@ void publisher_operations() {
     file = fopen(df.Publishers, "r+"); // Open file in read mode
 
     if(file == NULL) {
-    	file = fopen(df.Readers, "w+");
+    	file = fopen(df.Publishers, "w+");
 	}
 
     printf("File reading is successful.\n");
@@ -429,6 +429,55 @@ void savePublisher(FILE *file, Publisher *publisher, int numPublisher) {
 
 // Function to choice category operations
 void category_operations() {
+
+	FILE *file;
+    file = fopen(df.Categories, "r+"); // Open file in read mode
+
+    if(file == NULL) {
+    	file = fopen(df.Categories, "w+");
+	}
+
+    printf("File reading is successful.\n");
+    int choice;
+    Category newCategory;
+    Category updatedCategory;
+    int targetId;
+    
+    do {
+    	printf("\n1. View Categories\n2. Add Category\n3. Update Category\n4. Delete Category\n5. Save and Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+        	case 1:
+        		viewCategories(file);
+        		break;
+        	case 2:
+        		printf("Enter ID: ");
+        		scanf("%d", &newCategory.ID);
+        		printf("Enter Category Name: ");
+        		scanf("%s", &newCategory.CategoryName);
+        		addCategory(file, &newCategory);
+        		break;
+			case 3:
+				printf("Enter ID to update: ");
+                scanf("%d", &targetId);
+                printf("Enter updated Category Name: ");
+        		scanf("%s", &updatedCategory.CategoryName);
+        		updateCategory(file, targetId, &updatedCategory);
+				break;
+			case 4:
+				printf("Enter ID to delete: ");
+                scanf("%d", &targetId);
+                deleteCategory(file, targetId);
+                break;
+            case 5: 
+            	fclose(file);
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+		}	
+	} while(1);
 
 }
 
