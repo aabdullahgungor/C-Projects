@@ -63,14 +63,14 @@ typedef struct {
 	char ISBN[100];
 } Book;
 
-/*
+
 void book_operations();
 void viewBooks(FILE *file);
 void addBook(FILE *file, Book *newBook);
 void updateBook(FILE *file, int targetId, Book *updatedBook);
 void deleteBook(FILE *file, int targetId);
 void saveBook(FILE *file, Book *book, int numBook);
-*/
+
 
 typedef struct {
 	unsigned int ID;
@@ -103,7 +103,7 @@ int main()
 				break;
 			case 2:
 				printf("Book Process ..... \n");
-				// book_operations();
+				book_operations();
 				break;
 			case 3:
 				printf("Category Process ..... \n");
@@ -568,3 +568,35 @@ void deleteCategory(FILE *file, int targetId) {
 void saveCategory(FILE *file, Category *category, int numCategory) {
 
 }
+
+/* ---- BOOK OPERATIONS ---- */
+
+// Function to choice book operations
+void book_operations() {
+
+}
+
+// Function to view books from file
+void viewBooks(FILE *file) {
+
+}
+
+// Function to add a new book to the file
+void addBook(FILE *file, Book *newBook) {
+
+}
+
+// Function to update a book in the file
+void updateBook(FILE *file, int targetId, Book *updatedBook) {
+
+}
+
+// Function to delete book from file
+void deleteBook(FILE *file, int targetId) {
+
+}
+
+void saveBook(FILE *file, Book *book, int numBook) {
+
+}
+
