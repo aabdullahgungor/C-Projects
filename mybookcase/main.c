@@ -671,6 +671,39 @@ void addBook(FILE *file, Book *newBook) {
 // Function to update a book in the file
 void updateBook(FILE *file, int targetId, Book *updatedBook) {
 
+    rewind(file); // Move file pointer to the beginning
+
+    Book book;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+    
+    int found = 0;
+    
+    while (fread(&book, sizeof(Book), 1, file)) {
+        if (book.ID == targetId) {
+			strcpy(book.Name, updatedBook->Name);
+            strcpy(book.Description, updatedBook->Description);
+            strcpy(book.PublishedDate, updatedBook->PublishedDate);
+            strcpy(book.Edition, updatedBook->Edition);
+            strcpy(book.TotalPages, updatedBook->TotalPages);
+            strcpy(book.Language, updatedBook->Language);
+            strcpy(book.ISBN, updatedBook->ISBN);
+        	fwrite(&book, sizeof(Book), 1, tempFile);
+            printf("Data updated successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&book, sizeof(Book), 1, tempFile);
+        }
+    }
+    
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Books);
+    rename("temp.txt", df.Books);
+
+    if (!found) {
+        printf("Book not found.\n");
+    }
 }
 
 // Function to delete book from file
