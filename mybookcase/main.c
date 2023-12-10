@@ -59,7 +59,7 @@ typedef struct {
 	char PublishedDate[50];
 	unsigned int Edition;
 	unsigned int TotalPages;
-	char Languages[50];
+	char Language[50];
 	char ISBN[100];
 } Book;
 
@@ -574,16 +574,98 @@ void saveCategory(FILE *file, Category *category, int numCategory) {
 // Function to choice book operations
 void book_operations() {
 
+    FILE *file;
+    file = fopen(df.Books, "r+"); // Open file in read mode
+
+    if(file == NULL) {
+    	file = fopen(df.Books, "w+");
+	}
+
+    printf("File reading is successful.\n");
+    int choice;
+    Book newBook;
+    Book updatedBook;
+    int targetId;
+    
+    do {
+    	printf("\n1. View Books\n2. Add Book\n3. Update Book\n4. Delete Book\n5. Save and Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+        	case 1:
+        		viewBooks(file);
+        		break;
+        	case 2:
+        		printf("Enter ID: ");
+        		scanf("%d", &newBook.ID);
+        		printf("Enter Book Name: ");
+        		scanf("%s", &newBook.Name);
+                printf("Enter Description about Book: ");
+                scanf("%s", &newBook.Description);
+                printf("Enter Published Date: ");
+                scanf("%s", &newBook.PublishedDate);
+                printf("Enter Book Edition: ");
+                scanf("%d", &newBook.Edition);
+                printf("Enter Book's Total Pages: ");
+                scanf("%d", &newBook.TotalPages);
+                printf("Enter Book Language: ");
+                scanf("%s", &newBook.Language);
+                printf("Enter Book ISBN: ");
+                scanf("%s", &newBook.ISBN);
+        		addBook(file, &newBook);
+        		break;
+			case 3:
+				printf("Enter ID to update: ");
+                scanf("%d", &targetId);
+                printf("Enter Updated Book Name: ");
+        		scanf("%s", &updatedBook.Name);
+                printf("Enter Updated Description about Book: ");
+                scanf("%s", &updatedBook.Description);
+                printf("Enter Updated Published Date: ");
+                scanf("%s", &updatedBook.PublishedDate);
+                printf("Enter Updated Book Edition: ");
+                scanf("%d", &updatedBook.Edition);
+                printf("Enter Updated Book's Total Pages: ");
+                scanf("%d", &updatedBook.TotalPages);
+                printf("Enter Updated Book Language: ");
+                scanf("%s", &updatedBook.Language);
+                printf("Enter Updated Book ISBN: ");
+                scanf("%s", &updatedBook.ISBN);
+        		updateBook(file, targetId, &updatedBook);
+				break;
+			case 4:
+				printf("Enter ID to delete: ");
+                scanf("%d", &targetId);
+                deleteBook(file, targetId);
+                break;
+            case 5: 
+            	fclose(file);
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+		}	
+	} while(1);
 }
 
 // Function to view books from file
 void viewBooks(FILE *file) {
 
+    rewind(file); // Move file pointer to the beginning
+	
+	Book book;
+    printf("\nID\tName\tDescription\tPublished_Date\tEdition\tTotal_Pages\tLanguage\tISBN\n");
+	while (fread(&book, sizeof(Book), 1, file)) {
+        printf("\n%d\t%s\t%s\t%s\t%d\t%d\t%s\t%s\n", book.ID, book.Name, book.Description, book.PublishedDate, book.Edition, book.TotalPages, book.Language, book.ISBN);
+    }
 }
 
 // Function to add a new book to the file
 void addBook(FILE *file, Book *newBook) {
 
+    fseek(file, 0, SEEK_END); // Move file pointer to the end
+	fwrite(newBook, sizeof(Book), 1, file);
+    printf("Data added successfully.\n");
 }
 
 // Function to update a book in the file
