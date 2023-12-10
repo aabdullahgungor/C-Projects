@@ -709,6 +709,32 @@ void updateBook(FILE *file, int targetId, Book *updatedBook) {
 // Function to delete book from file
 void deleteBook(FILE *file, int targetId) {
 
+    rewind(file); // Move file pointer to the beginning
+
+    Book book;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+
+    int found = 0;
+
+    while (fread(&book, sizeof(Book), 1, file)) {
+        if (book.ID == targetId) {
+            printf("Data deleted successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&book, sizeof(Book), 1, tempFile);
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Books);
+    rename("temp.txt", df.Books);
+
+    if (!found) {
+        printf("Book not found.\n");
+    }
+
 }
 
 void saveBook(FILE *file, Book *book, int numBook) {
