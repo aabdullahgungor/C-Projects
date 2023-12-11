@@ -77,14 +77,14 @@ typedef struct {
 	char Name[50];
 } Author;
 
-/*
+
 void author_operations();
 void viewAuthors(FILE *file);
 void addAuthor(FILE *file, Author *newAuthor);
 void updateAuthor(FILE *file, int targetId, Author *updatedAuthor);
 void deleteAuthor(FILE *file, int targetId);
 void saveAuthor(FILE *file, Author *author, int numAuthor);
-*/
+
 
 int main()
 {
@@ -99,7 +99,7 @@ int main()
 		switch (choice) {
 			case 1:
 				printf("Author Process ..... \n");
-				// author_operations();
+				author_operations();
 				break;
 			case 2:
 				printf("Book Process ..... \n");
