@@ -683,8 +683,8 @@ void updateBook(FILE *file, int targetId, Book *updatedBook) {
 			strcpy(book.Name, updatedBook->Name);
             strcpy(book.Description, updatedBook->Description);
             strcpy(book.PublishedDate, updatedBook->PublishedDate);
-            strcpy(book.Edition, updatedBook->Edition);
-            strcpy(book.TotalPages, updatedBook->TotalPages);
+            book.Edition = updatedBook->Edition; 
+            book.TotalPages = updatedBook->TotalPages;
             strcpy(book.Language, updatedBook->Language);
             strcpy(book.ISBN, updatedBook->ISBN);
         	fwrite(&book, sizeof(Book), 1, tempFile);
@@ -738,6 +738,151 @@ void deleteBook(FILE *file, int targetId) {
 }
 
 void saveBook(FILE *file, Book *book, int numBook) {
+
+}
+
+/* ---- AUTHOR OPERATIONS ---- */
+
+// Function to choice author operations
+void author_operations() {
+
+    FILE *file;
+    file = fopen(df.Authors, "r+"); // Open file in read mode
+
+    if(file == NULL) {
+    	file = fopen(df.Authors, "w+");
+	}
+
+    printf("File reading is successful.\n");
+    int choice;
+    Author newAuthor;
+    Author updatedAuthor;
+    int targetId;
+    
+    do {
+    	printf("\n1. View Authors\n2. Add Author\n3. Update Author\n4. Delete Author\n5. Save and Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+        	case 1:
+        		viewAuthors(file);
+        		break;
+        	case 2:
+        		printf("Enter ID: ");
+        		scanf("%d", &newAuthor.ID);
+        		printf("Enter Author Name: ");
+        		scanf("%s", &newAuthor.Name);
+        		addAuthor(file, &newAuthor);
+        		break;
+			case 3:
+				printf("Enter ID to update: ");
+                scanf("%d", &targetId);
+                printf("Enter updated Author Name: ");
+        		scanf("%s", &updatedAuthor.Name);
+        		updateAuthor(file, targetId, &updatedAuthor);
+				break;
+			case 4:
+				printf("Enter ID to delete: ");
+                scanf("%d", &targetId);
+                deleteAuthor(file, targetId);
+                break;
+            case 5: 
+            	fclose(file);
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+		}	
+	} while(1);
+
+}
+
+// Function to view authors from file
+void viewAuthors(FILE *file) {
+
+    rewind(file); // Move file pointer to the beginning
+	
+	Author author;
+    printf("\nID\tAuthor_Name\n");
+	while (fread(&author, sizeof(Author), 1, file)) {
+        printf("%d\t%s\n", author.ID, author.Name);
+    }
+
+}
+
+// Function to add a new author to the file
+void addAuthor(FILE *file, Author *newAuthor) {
+
+    fseek(file, 0, SEEK_END); // Move file pointer to the end
+	fwrite(newAuthor, sizeof(Author), 1, file);
+    printf("Data added successfully.\n");
+
+}
+
+// Function to update a author in the file
+void updateAuthor(FILE *file, int targetId, Author *updatedAuthor) {
+
+    rewind(file); // Move file pointer to the beginning
+
+    Author author;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+    
+    int found = 0;
+    
+    while (fread(&author, sizeof(Author), 1, file)) {
+        if (author.ID == targetId) {
+			strcpy(author.Name, updatedAuthor->Name);
+        	fwrite(&author, sizeof(Author), 1, tempFile);
+            printf("Data updated successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&author, sizeof(Author), 1, tempFile);
+        }
+    }
+    
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Authors);
+    rename("temp.txt", df.Authors);
+
+    if (!found) {
+        printf("Author not found.\n");
+    }
+
+}
+
+// Function to delete author from file
+void deleteAuthor(FILE *file, int targetId) {
+
+    rewind(file); // Move file pointer to the beginning
+
+    Author author;
+    FILE *tempFile = fopen("temp.txt", "w"); // Temporary file to store non-deleted records
+
+    int found = 0;
+
+    while (fread(&author, sizeof(Author), 1, file)) {
+        if (author.ID == targetId) {
+            printf("Data deleted successfully.\n");
+            found = 1;
+        } else {
+            fwrite(&author, sizeof(Author), 1, tempFile);
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    remove(df.Authors);
+    rename("temp.txt", df.Authors);
+
+    if (!found) {
+        printf("Category not found.\n");
+    }
+}
+
+void saveAuthor(FILE *file, Author *author, int numAuthor) {
 
 }
 
